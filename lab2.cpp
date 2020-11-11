@@ -40,6 +40,9 @@ private:
 
 double& Wektor::operator[](int i)
 {
+    if (i >= dlugosc)
+        zmienDlugosc(i + 1);
+
     return vector[i];
 }
 
@@ -64,13 +67,17 @@ void Wektor::zmienDlugosc(int newLength)
     }
     else {
         double* newvector = new double[newLength];
+
         for (int i = 0; i < pojemnosc; i++)
             newvector[i] = vector[i];
         delete[] vector;
         for (int i = pojemnosc; i < newLength; i++)
-            newvector[i] = 0;
-        vector = newvector;
-        delete[] newvector;
+            newvector[i] = 0.;
+
+        vector      = newvector;
+        double temp = vector[0];
+        delete[] newvector; // UWAGA: po tej linijce również vector[0] = 0
+        vector[0] = temp;
         dlugosc   = newLength;
         pojemnosc = newLength;
     }
@@ -80,23 +87,41 @@ int main()
 {
     Wektor Vector1{3};
     Vector1.print();
+    std::cout << "Dlugosc wektora: " << Vector1.getDlugosc() << std::endl;
+    std::cout << "Pojemnosc wektora: " << Vector1.getPojemnosc() << std::endl;
 
-    Vector1[0] = 42.;
-    Vector1[1] = 22.;
+    Vector1[0] = 1.;
+    Vector1[1] = 2.;
+    Vector1[2] = 3.;
     Vector1.print();
+    std::cout << "Dlugosc wektora: " << Vector1.getDlugosc() << std::endl;
+    std::cout << "Pojemnosc wektora: " << Vector1.getPojemnosc() << std::endl;
 
-    double a = Vector1[1];
-    a++;
-    std::cout << "a=" << a << std::endl;
+    Vector1[5] = 6.;
     Vector1.print();
+    std::cout << "Dlugosc wektora: " << Vector1.getDlugosc() << std::endl;
+    std::cout << "Pojemnosc wektora: " << Vector1.getPojemnosc() << std::endl;
+
+    Vector1[0] = 11.;
+    Vector1.print();
+    std::cout << "Dlugosc wektora: " << Vector1.getDlugosc() << std::endl;
+    std::cout << "Pojemnosc wektora: " << Vector1.getPojemnosc() << std::endl;
 }
 
 /*
 Po wykonaniu otrzymano:
   Konstruktor parametryczny wektora o dlugosci 3.
   [0, 0, 0]
-  [42, 22, 0]
-  a=23
-  [42, 22, 0]
+  Dlugosc wektora: 3
+  Pojemnosc wektora: 3
+  [1, 2, 3]
+  Dlugosc wektora: 3
+  Pojemnosc wektora: 3
+  [1, 2, 3, 0, 0, 6]
+  Dlugosc wektora: 6
+  Pojemnosc wektora: 6
+  [11, 2, 3, 0, 0, 6]
+  Dlugosc wektora: 6
+  Pojemnosc wektora: 6
   Destruktor wektora.
 */
