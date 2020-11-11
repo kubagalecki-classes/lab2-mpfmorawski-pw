@@ -54,7 +54,7 @@ public:
 
   ~ResourceManager()
   {
-    std::cout << "Destruktor.\n";
+    // std::cout << "Destruktor.\n";
     delete resource;
   }
 
