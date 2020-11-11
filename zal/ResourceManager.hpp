@@ -9,19 +9,19 @@ public:
 
   ResourceManager()
   {
-    std::cout << "Konstruktor domyslny.\n";
+    //std::cout << "Konstruktor domyslny.\n";
     resource = new Resource;
   }
 
   ResourceManager(const ResourceManager& RM)
   {
-    std::cout << "Konstruktor kopiujacy.\n";
+    //std::cout << "Konstruktor kopiujacy.\n";
     resource = RM.resource;
   }
 
   ResourceManager& operator=(const ResourceManager& RM)
   {
-    std::cout << "Kopiujacy operator przypisania.\n";
+    //std::cout << "Kopiujacy operator przypisania.\n";
     if(this != &RM)
     {
       resource = RM.resource;
@@ -31,14 +31,14 @@ public:
 
   ResourceManager(ResourceManager&& RM)
   {
-    std::cout << "Konstruktor przenoszacy\n";
+    //std::cout << "Konstruktor przenoszacy\n";
     resource = RM.resource;
     RM.resource = NULL;
   }
 
   ResourceManager& operator=(ResourceManager&& RM)
   {
-    std::cout << "Przenoszacy operator przypisania.\n";
+    //std::cout << "Przenoszacy operator przypisania.\n";
     if(this != &RM)
     {
       resource = RM.resource;
