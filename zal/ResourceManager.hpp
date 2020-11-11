@@ -16,7 +16,7 @@ public:
   ResourceManager(const ResourceManager& RM)
   {
     //std::cout << "Konstruktor kopiujacy.\n";
-    resource = RM.resource;
+    resource = new Resource{*RM.resource};
   }
 
   ResourceManager& operator=(const ResourceManager& RM)
@@ -24,7 +24,8 @@ public:
     //std::cout << "Kopiujacy operator przypisania.\n";
     if(this != &RM)
     {
-      resource = RM.resource;
+      delete resource;
+      resource = new Resource{*RM.resource};
     }
     return *this;
   }
@@ -33,7 +34,7 @@ public:
   {
     //std::cout << "Konstruktor przenoszacy\n";
     resource = RM.resource;
-    RM.resource = NULL;
+    RM.resource = nullptr;
   }
 
   ResourceManager& operator=(ResourceManager&& RM)
@@ -41,6 +42,7 @@ public:
     //std::cout << "Przenoszacy operator przypisania.\n";
     if(this != &RM)
     {
+      delete resource;
       resource = RM.resource;
       RM.resource = nullptr;
     }
