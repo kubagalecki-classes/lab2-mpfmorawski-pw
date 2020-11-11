@@ -49,7 +49,7 @@ public:
 
   double get()
   {
-    return resource.get();
+    return resource->get();
   }
 
   ~ResourceManager()
