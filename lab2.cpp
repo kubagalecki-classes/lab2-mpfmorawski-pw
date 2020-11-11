@@ -2,20 +2,14 @@
 
 struct Kokardka
 {
-    // Kokardka() { dlugosc = 42; }
-    Kokardka(int d) { dlugosc = d; }
+    Kokardka(int d) : dlugosc{d} {}
 
     int dlugosc;
 };
 
 struct Prezent
 {
-    Prezent(int dk)
-    {
-        std::cout << k.dlugosc << std::endl;
-        k.dlugosc = dk;
-        std::cout << k.dlugosc << std::endl;
-    }
+    Prezent(int dk) : k{dk} { std::cout << k.dlugosc << std::endl; }
 
     Kokardka k;
 };
