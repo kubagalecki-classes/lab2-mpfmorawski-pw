@@ -4,8 +4,6 @@ class Wektor
 {
 
 public:
-    double* vector;
-
     Wektor() : dlugosc{0}
     {
         std::cout << "Konstruktor domyslny wektora.\n";
@@ -26,6 +24,8 @@ public:
         delete[] vector;
     }
 
+    double& operator[](int);
+
     int getDlugosc() { return dlugosc; }
     int getPojemnosc() { return pojemnosc; }
 
@@ -33,9 +33,15 @@ public:
     void zmienDlugosc(int);
 
 private:
-    int dlugosc;
-    int pojemnosc;
+    double* vector;
+    int     dlugosc;
+    int     pojemnosc;
 };
+
+double& Wektor::operator[](int i)
+{
+    return vector[i];
+}
 
 void Wektor::print()
 {
@@ -74,9 +80,14 @@ int main()
 {
     Wektor Vector1{3};
     Vector1.print();
-    Vector1.zmienDlugosc(5);
+
+    Vector1[0] = 42.;
+    Vector1[1] = 22.;
     Vector1.print();
-    Vector1.zmienDlugosc(2);
+
+    double a = Vector1[1];
+    a++;
+    std::cout << "a=" << a << std::endl;
     Vector1.print();
 }
 
@@ -84,7 +95,8 @@ int main()
 Po wykonaniu otrzymano:
   Konstruktor parametryczny wektora o dlugosci 3.
   [0, 0, 0]
-  [0, 0, 0, 0, 0]
-  [0, 0]
+  [42, 22, 0]
+  a=23
+  [42, 22, 0]
   Destruktor wektora.
 */
