@@ -35,6 +35,26 @@ public:
         pojemnosc = W.pojemnosc;
     }
 
+    Wektor& operator=(const Wektor& W)
+    {
+        std::cout << "Kopiujacy operator przypisania wektora.\n";
+        if (this != &W) {
+            double* temp;
+            temp = new double[W.dlugosc];
+            for (int i = 0; i < W.dlugosc; i++)
+                temp[i] = W.vector[i];
+
+            vector       = temp;
+            double temp0 = temp[0];
+            delete[] temp;
+            vector[0] = temp0;
+
+            dlugosc   = W.dlugosc;
+            pojemnosc = W.pojemnosc;
+        }
+        return *this;
+    }
+
     ~Wektor()
     {
         std::cout << "Destruktor wektora.\n";
@@ -107,7 +127,10 @@ int main()
         Vector1[i] = i + 1;
     Vector1.print();
 
-    Wektor Vector2{Vector1};
+    Wektor Vector2{};
+    Vector2.print();
+
+    Vector2 = Vector1 = Vector1;
     Vector2.print();
 
     std::cout << std::endl;
